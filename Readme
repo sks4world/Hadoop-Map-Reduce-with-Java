@@ -1,0 +1,18 @@
+1. Login to Cloudera /home/admin/workspace
+2. Transfer attached files to that folder. Rename the file using command mv UVCount.java UVoteCount.java
+3. export JAVA_HOME = /usr/lib/java
+4 export HADOOP_CLASSPATH=$JAVA_HOME/lib/tools.jar
+5. Compile the .java file using the command 
+hadoop com.sun.tools.javac.Main UVoteCount.java
+6. You will find three class files created. Jar them using the following command
+jar cf UVoteCount.jar UVoteCoun*.class
+7. Move the text files to a new folder using the command below
+hdfs dfs -moveFromLocal file0*.txt /user/cloudera/input
+8. Run the Java Mapper and Reducer Program on hadoop using the following command
+hadoop jar UVoteCount.jar UVoteCount /user/cloudera/input /user/cloudera/ouptut
+This will map both the input files, count the votes for each candidate and create one output file in output folder
+9. View the input or output files using the command below
+hdfs dfs -cat /user/cloudera/output/part-r-00000
+10. Open hue browser to view the Hadoop HDFS file system
+localhost:8888/filebrowser/#/user/cloudera/input
+The map reduce Java program has run on Hadoop with one cluster and completed its taks using the Hadoop HDFS file system 
